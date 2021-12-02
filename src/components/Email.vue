@@ -23,7 +23,7 @@
             <div class="app-contact">CONTACT INFO : +234 818 840 0911</div>
           </div>
           <div class="screen-body-item">
-            <form class="app-form" ref="form"  @submit.prevent="sendMail" >
+            <form class="app-form" :ref="form"  @submit.prevent="sendMail" >
               <div class="app-form-group">
                 <input class="app-form-control" name="name" placeholder="name" type="text" >
               </div>
@@ -53,8 +53,10 @@ import emailjs from 'emailjs-com';
 export default {
   setup() {
 
+    const form = ref(null)
+
     const sendMail = () => {
-      emailjs.sendForm('service_1g9lrll', 'template_ttmh426', this.$refs.form, 'user_prA4Swm8nuJiz2vv8iByN')
+      emailjs.sendForm('service_1g9lrll', 'template_ttmh426', form, 'user_prA4Swm8nuJiz2vv8iByN')
       .then((result) => {
         console.log('SUCCESS!', result);
       }, (error) => {
@@ -62,7 +64,8 @@ export default {
       });
     }
     return{
-      sendMail
+      sendMail,
+      form
     }
   }
 }
